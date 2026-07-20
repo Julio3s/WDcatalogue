@@ -135,7 +135,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F6F1EA] text-text-dark">
-      <section className="relative -mt-px overflow-hidden bg-[#171311]">
+      <section className="relative -mt-2 overflow-hidden bg-[#171311]">
         <div className="absolute inset-0">
           <img
             src={HERO_IMAGE}
@@ -153,8 +153,8 @@ export default function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[48svh] w-full max-w-7xl items-start px-4 pb-6 pt-2 sm:px-6 sm:pt-3 lg:px-8 lg:pt-4">
-          <div className="max-w-3xl pt-1 sm:pt-2">
+        <div className="relative z-10 mx-auto flex min-h-[44svh] w-full max-w-7xl items-start px-4 pb-6 pt-0 sm:px-6 sm:pt-1 lg:px-8 lg:pt-2">
+          <div className="max-w-3xl pt-0">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/85 backdrop-blur-md">
               Catalogue public
             </p>
