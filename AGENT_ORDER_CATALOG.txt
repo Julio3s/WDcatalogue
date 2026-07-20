@@ -1,0 +1,141 @@
+================================================================================
+WORLD DESIGN CATALOG — AGENT ORDER FILE
+Fichier d'instructions à lire AVANT tout démarrage
+================================================================================
+
+Ce fichier est la référence absolue pour tous les agents IA intervenant sur ce
+projet. Chaque agent doit lire l'intégralité de ce fichier avant d'écrire la
+moindre ligne de code. Aucune exception.
+
+ATTENTION — CE PROJET EST DIFFÉRENT DU PROJET "WORLD DESIGN WD SARL U"
+(e-commerce Flooz/T-Money/CinetPay). Ne rien réutiliser de cet autre projet :
+ni modèles, ni routes, ni composants, ni vocabulaire ("panier", "prix",
+"commande", "paiement" sont INTERDITS ici).
+
+================================================================================
+SECTION 1 — IDENTITÉ DU PROJET
+================================================================================
+
+Client      : WORLD DESIGN — fabricant de goodies personnalisés (principalement bois)
+Nature      : CATALOGUE NUMÉRIQUE PREMIUM — CE N'EST PAS UN SITE E-COMMERCE
+Objectif    : permettre à des entreprises de parcourir les produits, constituer
+              une sélection, et l'envoyer par WhatsApp pour demander un devis
+Paiement    : AUCUN — le site ne traite jamais de paiement
+Prix        : AUCUN — le site n'affiche, ne stocke et ne calcule jamais de prix
+Compte      : AUCUN compte visiteur — authentification réservée aux administrateurs
+Stack       : React 19 + TypeScript + Vite (frontend) | Django + DRF (backend)
+              PostgreSQL | Cloudinary | Docker | Render Pro | Nginx
+Priorité    : Expérience premium, rapide, élégante, responsive parfait
+
+RAPPEL ABSOLU DU PÉRIMÈTRE
+  - Pas de panier → le terme utilisé est "Ma sélection"
+  - Pas de prix → aucun champ Prix nulle part (modèle, API, UI)
+  - Pas de commande → aucune donnée de sélection n'est enregistrée en base
+  - Pas de compte client → aucune inscription, aucune connexion publique
+  - Seule sortie transactionnelle : un message WhatsApp pré-rempli
+
+================================================================================
+SECTION 2 — STACK TECHNIQUE DÉTAILLÉE
+================================================================================
+
+------------------------------------------------------------------------
+BREAKPOINTS RESPONSIVES
+------------------------------------------------------------------------
+
+Mobile   : 375px  — concevoir ICI EN PREMIER
+Tablette : 768px
+Desktop  : 1280px+
+
+------------------------------------------------------------------------
+TON VISUEL ATTENDU
+------------------------------------------------------------------------
+
+  - Grandes cartes produits, grandes images, beaucoup de respiration (whitespace)
+  - Animations discrètes et fluides (fade-in, hover léger), jamais gadget
+  - Aucune référence visuelle copiée d'un autre site ou d'une autre marque
+  - Objectif Lighthouse : Performance ≥ 95, Accessibilité ≥ 95, SEO ≥ 95,
+    Best Practices ≥ 95
+
+================================================================================
+SECTION 4 — RÈGLES MÉTIER CRITIQUES
+================================================================================
+
+1. AUCUN PRIX NULLE PART
+   - Le modèle Produit ne contient AUCUN champ prix
+   - Aucune API ne renvoie de prix, aucune UI n'affiche de prix
+   - Les prix sont communiqués uniquement plus tard, hors site, via devis
+
+2. VOCABULAIRE OBLIGATOIRE
+   - Le mot "panier" est INTERDIT dans le code, les routes, l'UI, les commentaires
+   - Utiliser uniquement "Ma sélection" / "selection" dans le code
+   - Le mot "commande" est INTERDIT — il n'existe aucune commande
+
+3. "MA SÉLECTION"
+   - Stockée uniquement côté navigateur (localStorage via Zustand + persist)
+   - AUCUNE sélection n'est enregistrée en base de données
+   - Actions : ajouter, retirer, modifier la quantité, vider
+   - Persiste entre rechargements de page, ne persiste pas entre appareils
+
+4. GÉNÉRATION DU MESSAGE WHATSAPP
+   Le message généré doit respecter EXACTEMENT ce format (à adapter uniquement
+   pour l'encodage URL, jamais dans le contenu) :
+
+     Bonjour,
+
+     Nous sommes intéressés par les produits suivants :
+
+     1.
+     Nom :
+     Référence :
+     Quantité :
+     Informations complémentaires :
+     ------------------------------------
+
+     2.
+     Nom :
+     Référence :
+     Quantité :
+     Informations complémentaires :
+     ------------------------------------
+
+     Merci de nous transmettre un devis.
+
+   - Un bloc numéroté par produit de la sélection, séparateur inclus
+   - "Informations complémentaires" reste vide si le visiteur n'a rien précisé
+   - Le message est encodé et ouvre wa.me (ou l'API WhatsApp Business si
+     fournie plus tard) dans un nouvel onglet
+   - Le numéro WhatsApp de destination est une variable d'environnement
+     (VITE_WHATSAPP_NUMBER), jamais codé en dur
+
+5. RÉFÉRENCES PRODUITS
+   - Générées automatiquement par le backend, jamais saisies manuellement
+   - Format strict : WD0001, WD0002, WD0003, ... (incrémental, zéro-paddé sur 4)
+   - Immutables : l'administrateur ne peut jamais modifier une référence
+   - Unicité garantie par contrainte base de données, pas seulement applicative
+
+6. IMAGES
+   - Toutes les images produits/catégories sont stockées sur Cloudinary
+   - Stockage local autorisé uniquement en développement
+   - Un produit a une image principale + une galerie d'images secondaires
+     (plusieurs images, ordre modifiable)
+   - Optimisation automatique à l'upload (formats/tailles servis par Cloudinary)
+   - Validation stricte du type de fichier et de la taille à l'upload
+
+7. AUTHENTIFICATION
+   - Le catalogue public est 100% accessible sans compte, sans connexion
+   - Aucune route publique ne doit jamais exiger d'authentification
+   - Seul l'espace /admin est protégé par JWT
+   - Toutes les routes de mutation (création/édition/suppression catégorie
+     ou produit) exigent IsAdminUser
+
+8. CATÉGORIES
+   - Entièrement dynamiques, aucune catégorie codée en dur dans le frontend
+   - Créées, éditées, réorganisées uniquement depuis l'admin
+
+================================================================================
+SECTION 5 — ORDRE D'EXÉCUTION DES AGENTS
+================================================================================
+
+Respecter cet ordre. Ne pas sauter d'étape. Ne pas commencer une étape si la
+précédente n'est pas terminée et testée.
+

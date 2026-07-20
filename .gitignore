@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+*.log
+.venv/
+venv/
+backend/.venv/
+backend/staticfiles/
+backend/media/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# Environment files
+.env
+.env.*
+!.env.example
+key.yaml
+
+# OS
+.DS_Store
+Thumbs.db
