@@ -4,6 +4,7 @@ Django settings for WORLD DESIGN project.
 
 import os
 from pathlib import Path
+from urllib.parse import urlparse, unquote
 from decouple import config, Csv
 from datetime import timedelta
 from django.core.exceptions import ImproperlyConfigured
@@ -102,25 +103,39 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
-DB_ENGINE = config('DB_ENGINE', default='sqlite3')
-if DB_ENGINE == 'sqlite3':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'katalogue.sqlite3',
-        }
-    }
-else:
+DATABASE_URL = config('DATABASE_URL', default='').strip()
+if DATABASE_URL:
+    parsed_url = urlparse(DATABASE_URL)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME', default='katalogue'),
-            'USER': config('DB_USER', default='postgres'),
-            'PASSWORD': config('DB_PASSWORD', default='postgres'),
-            'HOST': config('DB_HOST', default='localhost'),
-            'PORT': config('DB_PORT', default='5432'),
+            'NAME': parsed_url.path.lstrip('/'),
+            'USER': unquote(parsed_url.username or ''),
+            'PASSWORD': unquote(parsed_url.password or ''),
+            'HOST': parsed_url.hostname or 'localhost',
+            'PORT': str(parsed_url.port or 5432),
         }
     }
+else:
+    DB_ENGINE = config('DB_ENGINE', default='sqlite3')
+    if DB_ENGINE == 'sqlite3':
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'katalogue.sqlite3',
+            }
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': config('DB_NAME', default='katalogue'),
+                'USER': config('DB_USER', default='postgres'),
+                'PASSWORD': config('DB_PASSWORD', default='postgres'),
+                'HOST': config('DB_HOST', default='localhost'),
+                'PORT': config('DB_PORT', default='5432'),
+            }
+        }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -214,6 +229,13 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='', cast=Csv())
 if render_host:
     CSRF_TRUSTED_ORIGINS.append(f'https://{render_host}')
+
+# Render terminates TLS before Django, so trust the proxy headers in production.
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 
 
