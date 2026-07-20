@@ -1,7 +1,6 @@
 ﻿import { useEffect, useState, useCallback } from 'react';
 import {
   ArrowRight,
-  ArrowUpRight,
   CheckCircle2,
   Eye,
   Pencil,
@@ -9,8 +8,6 @@ import {
   Sparkles,
   ShieldCheck,
   Truck,
-  Quote,
-  Star,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -22,10 +19,9 @@ import { ProductGridSkeleton } from '../components/skeletons/ProductGridSkeleton
 import { SectionHeading } from '../components/SectionHeading';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { getFeaturedProducts, getCategories } from '../api/catalog';
-import { getProductImage } from '../utils/media';
 import { buildWhatsAppUrl } from '../utils/whatsapp';
 
-const HERO_IMAGE = '/images/steps-background.png';
+const HERO_IMAGE = '/images/hero-products-personalized.jpg';
 
 const JOURNEY = [
   {
@@ -139,43 +135,41 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F6F1EA] text-text-dark">
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-[#171311]">
         <div className="absolute inset-0">
           <img
             src={HERO_IMAGE}
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/35" aria-hidden="true" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/72 via-black/44 to-[#F6F1EA]"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/55 to-transparent"
+          aria-hidden="true"
+        />
 
-        <div className="relative z-10 mx-auto grid min-h-[78svh] w-full max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8">
-          <div className="max-w-3xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur-sm">
-              Catalogue premium
+        <div className="relative z-10 mx-auto flex min-h-[54svh] w-full max-w-7xl items-start px-4 pb-8 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pt-10">
+          <div className="max-w-3xl pt-4 sm:pt-6">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/85 backdrop-blur-md">
+              Catalogue public
             </p>
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.03] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Des objets qui donnent du relief
               <span className="mt-2 block bg-gradient-to-r from-[#F5A623] to-[#E94560] bg-clip-text text-transparent">
                 à votre marque
               </span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
               Parcourez une sélection de goodies personnalisés, préparez votre demande en quelques gestes
               et envoyez-la à notre équipe pour obtenir un devis clair, rapide et adapté à votre projet.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              {['Sans inscription', 'Sélection locale', 'Réponse rapide', 'Accompagnement humain'].map((item) => (
-                <div key={item} className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2">
-                  <span className="h-2 w-2 rounded-full bg-[#F5A623]" />
-                  <span className="text-sm text-white/85">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/products"
                 className="group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
@@ -190,48 +184,6 @@ export default function HomePage() {
               >
                 Voir ma sélection
               </Link>
-            </div>
-          </div>
-
-          <div className="grid gap-4 lg:justify-self-end">
-            <div className="rounded-[28px] border border-white/12 bg-white/10 p-5 text-white shadow-[0_20px_60px_rgba(0,0,0,0.2)] backdrop-blur-md">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                Ce que vous faites ici
-              </p>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2">
-                {[
-                  { label: 'Navigation', value: 'Consulter les produits' },
-                  { label: 'Action', value: 'Ajouter à ma sélection' },
-                  { label: 'Envoi', value: 'Message prêt sur WhatsApp' },
-                  { label: 'Délai', value: 'Traitement très rapide' },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-white/10 bg-black/10 p-3">
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">{item.label}</p>
-                    <p className="mt-1 text-sm font-semibold text-white">{item.value}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-4 rounded-2xl border border-white/10 bg-black/10 p-4">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Repère utile</p>
-                <p className="mt-2 text-sm leading-7 text-white/85">
-                  Le catalogue reste ouvert à tous. Vous parcourez, vous choisissez, puis vous envoyez
-                  vos besoins directement à l’équipe.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { value: 'WD', label: 'Références auto' },
-                { value: 'WhatsApp', label: 'Canal de contact' },
-                { value: 'Libre', label: 'Accès au catalogue' },
-              ].map((item) => (
-                <div key={item.label} className="rounded-[24px] border border-white/12 bg-white/10 p-4 text-center text-white backdrop-blur-md">
-                  <p className="text-2xl font-black">{item.value}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.16em] text-white/60">{item.label}</p>
-                </div>
-              ))}
             </div>
           </div>
         </div>
