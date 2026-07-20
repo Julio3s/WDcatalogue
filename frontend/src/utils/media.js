@@ -2,6 +2,19 @@
  * Helper functions for product and category images.
  */
 
+export function normalizePublicUrl(url) {
+  if (!url) return '';
+
+  const value = String(url).trim();
+  if (!value) return '';
+
+  if (value.startsWith('http://')) {
+    return `https://${value.slice('http://'.length)}`;
+  }
+
+  return value;
+}
+
 /**
  * Get the best available image URL for a product.
  */
@@ -9,16 +22,16 @@ export function getProductImage(product) {
   if (!product) return '';
 
   // Prioritize image_url from serializer
-  if (product.image_url) return product.image_url;
+  if (product.image_url) return normalizePublicUrl(product.image_url);
 
   // Fall back to image field
-  if (product.image) return product.image;
+  if (product.image) return normalizePublicUrl(product.image);
 
   // If product has images array, get the first image
   if (product.images && Array.isArray(product.images) && product.images.length > 0) {
     const firstImage = product.images[0];
-    if (firstImage.image_url) return firstImage.image_url;
-    if (firstImage.image) return firstImage.image;
+    if (firstImage.image_url) return normalizePublicUrl(firstImage.image_url);
+    if (firstImage.image) return normalizePublicUrl(firstImage.image);
   }
 
   return '';
@@ -30,8 +43,8 @@ export function getProductImage(product) {
 export function getCategoryImage(category) {
   if (!category) return '';
 
-  if (category.image_url) return category.image_url;
-  if (category.image) return category.image;
+  if (category.image_url) return normalizePublicUrl(category.image_url);
+  if (category.image) return normalizePublicUrl(category.image);
 
   return '';
 }
@@ -42,5 +55,5 @@ export function getCategoryImage(category) {
  */
 export function optimizeImageUrl(url, width = 800) {
   if (!url) return null;
-  return url;
+  return normalizePublicUrl(url);
 }

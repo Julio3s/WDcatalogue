@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { LoadingScreen } from '../../components/LoadingScreen';
 import { useAdminAuthStore } from '../../store/adminAuthStore';
 
 export default function AdminLoginPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { login, loading, error, clearError, accessToken } = useAdminAuthStore();
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -33,12 +34,18 @@ export default function AdminLoginPage() {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    if (hydrated && accessToken) {
+      navigate(redirectTo, { replace: true });
+    }
+  }, [accessToken, hydrated, navigate, redirectTo]);
+
   if (!hydrated) {
     return <LoadingScreen />;
   }
 
   if (accessToken) {
-    return <Navigate to={redirectTo} replace />;
+    return null;
   }
 
   return (

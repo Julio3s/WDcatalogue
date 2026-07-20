@@ -10,12 +10,13 @@ import { QuantitySelector } from '../components/QuantitySelector';
 import { useSelectionStore } from '../store/selectionStore';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useSeo } from '../hooks/useSeo';
+import { normalizePublicUrl } from '../utils/media';
 
 function buildImagesArray(product) {
   if (!product) return [];
 
   const result = [];
-  const mainImageUrl = product.image_url || product.image || '';
+  const mainImageUrl = normalizePublicUrl(product.image_url || product.image || '');
 
   if (mainImageUrl) {
     result.push({ image_url: mainImageUrl, media_type: 'image', order: 0 });
@@ -25,15 +26,15 @@ function buildImagesArray(product) {
     product.images.forEach((img, idx) => {
       if (img.media_type === 'video' && img.video_url) {
         result.push({
-          video_url: img.video_url,
+          video_url: normalizePublicUrl(img.video_url),
           media_type: 'video',
-          thumbnail_url: img.image_url || img.image || null,
+          thumbnail_url: normalizePublicUrl(img.image_url || img.image || ''),
           order: idx + 1,
         });
         return;
       }
 
-      const imgUrl = img.image_url || img.image || '';
+      const imgUrl = normalizePublicUrl(img.image_url || img.image || '');
       if (imgUrl && imgUrl !== mainImageUrl) {
         result.push({ image_url: imgUrl, media_type: 'image', order: idx + 1 });
       }

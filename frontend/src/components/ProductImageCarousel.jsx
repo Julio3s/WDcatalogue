@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Eye, Play } from 'lucide-react';
-import { optimizeImageUrl } from '../utils/media';
+import { optimizeImageUrl, normalizePublicUrl } from '../utils/media';
 import ImageViewer from './ImageViewer';
 
 const SWIPE_THRESHOLD = 50;
@@ -36,8 +36,9 @@ function getVimeoId(url) {
  */
 function getVideoEmbedUrl(url) {
   if (!url) return null;
+  const safeUrl = normalizePublicUrl(url);
 
-  const youtubeId = getYouTubeId(url);
+  const youtubeId = getYouTubeId(safeUrl);
   if (youtubeId) {
     return {
       type: 'youtube',
@@ -45,7 +46,7 @@ function getVideoEmbedUrl(url) {
     };
   }
 
-  const vimeoId = getVimeoId(url);
+  const vimeoId = getVimeoId(safeUrl);
   if (vimeoId) {
     return {
       type: 'vimeo',
@@ -54,10 +55,10 @@ function getVideoEmbedUrl(url) {
   }
 
   // URL vidéo directe (mp4, webm, etc.)
-  if (url.match(/\.(mp4|webm|ogg)(\?.*)?$/i) || url.includes('/video/upload/')) {
+  if (safeUrl.match(/\.(mp4|webm|ogg)(\?.*)?$/i) || safeUrl.includes('/video/upload/')) {
     return {
       type: 'direct',
-      embedUrl: url,
+      embedUrl: safeUrl,
     };
   }
 

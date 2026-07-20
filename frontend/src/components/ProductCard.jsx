@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import { useSelectionStore } from '../store/selectionStore';
+import { getProductImage } from '../utils/media';
 
 export function ProductCard({ product, badgeLabel, className = '' }) {
-  const image = product.image_url || product.image || '';
+  const image = getProductImage(product);
   const addItem = useSelectionStore((state) => state.addItem);
   const [added, setAdded] = useState(false);
 

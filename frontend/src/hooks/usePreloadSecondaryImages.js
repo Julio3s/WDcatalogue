@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { normalizePublicUrl } from '../utils/media';
 
 /**
  * Hook pour précharger automatiquement les images secondaires des produits
@@ -30,19 +31,19 @@ export function usePreloadSecondaryImages(product, options = {}) {
           const link = document.createElement('link');
           link.rel = 'prefetch';
           link.as = 'video';
-          link.href = item.video_url;
+          link.href = normalizePublicUrl(item.video_url);
           document.head.appendChild(link);
         } else if (item.image_url) {
           // Précharger une image
           const link = document.createElement('link');
           link.rel = 'prefetch';
           link.as = 'image';
-          link.href = item.image_url;
+          link.href = normalizePublicUrl(item.image_url);
           document.head.appendChild(link);
 
           // Également précharger l'image en mémoire
           const image = new Image();
-          image.src = item.image_url;
+          image.src = normalizePublicUrl(item.image_url);
         }
       });
     }
@@ -126,17 +127,17 @@ export function usePreloadProductImages(products, options = {}) {
               const link = document.createElement('link');
               link.rel = 'prefetch';
               link.as = 'video';
-              link.href = item.video_url;
+              link.href = normalizePublicUrl(item.video_url);
               document.head.appendChild(link);
             } else if (item.image_url) {
               const link = document.createElement('link');
               link.rel = 'prefetch';
               link.as = 'image';
-              link.href = item.image_url;
+              link.href = normalizePublicUrl(item.image_url);
               document.head.appendChild(link);
 
               const image = new Image();
-              image.src = item.image_url;
+              image.src = normalizePublicUrl(item.image_url);
             }
           });
         }

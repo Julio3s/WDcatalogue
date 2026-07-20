@@ -3,6 +3,7 @@ import { Film, Plus, Trash2, Upload } from 'lucide-react';
 
 import { formatProductError } from '../../api/adminProducts';
 import { optimizeImage } from '../../utils/imageOptimizer';
+import { normalizePublicUrl } from '../../utils/media';
 import { Modal } from '../Modal';
 
 const EMPTY_FORM = {
@@ -85,7 +86,7 @@ export function ProductFormModal({
         customization_hint: product.customization_hint || '',
         has_models: Boolean(product.has_models),
       });
-      setImagePreview(product.image_url || '');
+      setImagePreview(normalizePublicUrl(product.image_url || ''));
       const imgs = (product.images || []).map((img) => ({
         id: img.id,
         image_url: img.image_url,
@@ -613,7 +614,7 @@ export function ProductFormModal({
               {existingImages.map((img) => (
                 <ExtraImageRow
                   key={`existing-${img.id}`}
-                  preview={img.image_url}
+                preview={normalizePublicUrl(img.image_url)}
                   order={img.order}
                   onRemove={() => handleRemoveExistingImage(img.id)}
                   mediaType={img.media_type || 'image'}

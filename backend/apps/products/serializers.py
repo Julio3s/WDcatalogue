@@ -8,6 +8,20 @@ from .models import Category, Product, ProductImage, ProductModel
 logger = logging.getLogger('products')
 
 
+def _normalize_public_url(url):
+    if not url:
+        return None
+
+    value = str(url).strip()
+    if not value:
+        return None
+
+    if value.startswith('http://'):
+        return f'https://{value[len("http://"):]}'
+
+    return value
+
+
 def _cloudinary_ready():
     cfg = cloudinary_config()
     return bool(
@@ -26,13 +40,13 @@ def _cloudinary_url(resource):
             return None
 
         if isinstance(resource, dict):
-            return resource.get('secure_url') or resource.get('url')
+            return _normalize_public_url(resource.get('secure_url') or resource.get('url'))
 
         raw = str(resource)
         if raw.startswith('http://') or raw.startswith('https://'):
-            return raw
+            return _normalize_public_url(raw)
 
-        return resource.url
+        return _normalize_public_url(resource.url)
     except Exception:
         return None
 

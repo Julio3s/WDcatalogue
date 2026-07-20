@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { getProductImage } from '../utils/media';
 
 export const useSelectionStore = create(
   persist(
@@ -22,7 +23,7 @@ export const useSelectionStore = create(
             productId: product.id,
             name: product.name,
             slug: product.slug,
-            image: product.image_url || product.image,
+            image: getProductImage(product),
             reference: product.reference || `WD${String(product.id).padStart(4, '0')}`,
             quantity,
             customText: customText || '',
