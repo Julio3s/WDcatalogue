@@ -135,7 +135,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F6F1EA] text-text-dark">
-      <section className="relative -mt-2 overflow-hidden bg-[#171311]">
+      <section className="relative -mt-1 overflow-hidden bg-[#171311]">
         <div className="absolute inset-0">
           <img
             src={HERO_IMAGE}
@@ -145,34 +145,34 @@ export default function HomePage() {
           />
         </div>
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/72 via-black/44 to-[#F6F1EA]"
+          className="absolute inset-0 bg-gradient-to-b from-black/82 via-black/56 to-[#F6F1EA]"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/55 to-transparent"
+          className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/70 to-transparent"
           aria-hidden="true"
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[44svh] w-full max-w-7xl items-start px-4 pb-6 pt-0 sm:px-6 sm:pt-1 lg:px-8 lg:pt-2">
+        <div className="relative z-10 mx-auto flex min-h-[40svh] w-full max-w-7xl items-start px-4 pb-6 pt-0 sm:min-h-[44svh] sm:px-6 sm:pt-1 lg:px-8 lg:pt-2">
           <div className="max-w-3xl pt-0">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/85 backdrop-blur-md">
               Catalogue public
             </p>
-            <h1 className="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-2xl text-3xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Des objets qui donnent du relief
               <span className="mt-2 block bg-gradient-to-r from-[#F5A623] to-[#E94560] bg-clip-text text-transparent">
                 à votre marque
               </span>
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82 sm:mt-5 sm:text-lg">
               Parcourez une sélection de goodies personnalisés, préparez votre demande en quelques gestes
               et envoyez-la à notre équipe pour obtenir un devis clair, rapide et adapté à votre projet.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
               <Link
                 to="/products"
-                className="group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98] sm:px-8 sm:py-4"
                 style={{ background: 'linear-gradient(135deg, #E94560, #D63A54)' }}
               >
                 Ouvrir le catalogue
@@ -180,7 +180,7 @@ export default function HomePage() {
               </Link>
               <Link
                 to="/ma-selection"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-8 py-4 text-sm font-bold text-white transition hover:border-[#F5A623] hover:text-[#F5A623]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3.5 text-sm font-bold text-white transition hover:border-[#F5A623] hover:text-[#F5A623] sm:px-8 sm:py-4"
               >
                 Voir ma sélection
               </Link>

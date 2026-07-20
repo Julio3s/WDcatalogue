@@ -205,8 +205,6 @@ export function Navbar() {
       </header>
 
       <div className="md:hidden">
-        <div className="h-20" aria-hidden="true" />
-
         <nav className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#E7DFD5] bg-[rgba(255,252,247,0.94)] px-3 py-3 backdrop-blur-xl">
           <div className="mx-auto grid max-w-7xl grid-cols-4 gap-2">
             <MobileNavLink
