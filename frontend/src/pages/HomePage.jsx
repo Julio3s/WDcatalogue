@@ -21,7 +21,7 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import { getFeaturedProducts, getCategories } from '../api/catalog';
 import { buildWhatsAppUrl } from '../utils/whatsapp';
 
-const HERO_IMAGE = '/images/hero-products-personalized.jpg';
+const HERO_IMAGE = '/images/user-attachment-hero.png';
 
 const JOURNEY = [
   {
