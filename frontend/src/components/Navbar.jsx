@@ -19,7 +19,7 @@ function NavPill({ to, end, children, onClick }) {
       onClick={onClick}
       className={({ isActive }) =>
         [
-          'inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold transition',
+          'inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition',
           isActive
             ? 'bg-[#171311] text-white shadow-[0_10px_30px_rgba(23,19,17,0.18)]'
             : 'text-[#4C4138] hover:bg-[#F4EFE8] hover:text-[#171311]',
@@ -109,8 +109,8 @@ export function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-[#E7DFD5] bg-[rgba(255,252,247,0.9)] backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3 py-3 md:py-3.5">
+        <div className="mx-auto w-full max-w-4xl px-3 sm:px-4 lg:px-5">
+          <div className="flex items-center justify-between gap-2 py-2.5 md:py-3">
             <Link
               to="/"
               className="group flex shrink-0 items-center gap-3 leading-none"
@@ -119,11 +119,11 @@ export function Navbar() {
               <img
                 src="/logo-wd.svg"
                 alt="World Design"
-                className="h-10 w-auto transition duration-200 group-hover:scale-[1.01] sm:h-11"
+                className="h-9 w-auto transition duration-200 group-hover:scale-[1.01] sm:h-10"
               />
             </Link>
 
-            <nav className="hidden items-center gap-1 rounded-full border border-[#E7DFD5] bg-white px-2 py-1.5 shadow-[0_10px_30px_rgba(23,19,17,0.05)] md:flex">
+            <nav className="hidden items-center gap-0.5 rounded-full border border-[#E7DFD5] bg-white px-1.5 py-1 shadow-[0_10px_30px_rgba(23,19,17,0.05)] md:flex">
               {NAV_LINKS.map((link) => (
                 <NavPill key={link.to} to={link.to} end={link.end}>
                   {link.label}
@@ -131,7 +131,7 @@ export function Navbar() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-2.5">
               <form onSubmit={handleSearchSubmit} className="hidden lg:block">
                 <label className="relative block">
                   <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A9A095]" />
@@ -140,7 +140,7 @@ export function Navbar() {
                     placeholder="Rechercher un produit, une référence ou une catégorie"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    className="h-11 w-[18rem] rounded-full border border-[#E7DFD5] bg-white pl-11 pr-4 text-sm text-[#171311] outline-none transition placeholder:text-[#B9ADA0] focus:border-[#171311]"
+                    className="h-10 w-[14rem] rounded-full border border-[#E7DFD5] bg-white pl-11 pr-4 text-sm text-[#171311] outline-none transition placeholder:text-[#B9ADA0] focus:border-[#171311]"
                   />
                 </label>
               </form>
@@ -148,7 +148,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setSearchOpen((prev) => !prev)}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E7DFD5] bg-white text-[#4C4138] transition hover:border-[#A58A63] hover:text-[#171311] lg:hidden"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E7DFD5] bg-white text-[#4C4138] transition hover:border-[#A58A63] hover:text-[#171311] lg:hidden"
                 aria-label="Rechercher"
               >
                 <Search className="h-5 w-5" />
@@ -156,7 +156,7 @@ export function Navbar() {
 
               <Link
                 to="/ma-selection"
-                className="relative hidden items-center gap-2 rounded-full border border-[#E7DFD5] bg-white px-4 py-2.5 text-sm font-semibold text-[#171311] transition hover:border-[#A58A63] hover:text-[#A58A63] md:inline-flex"
+                className="relative hidden items-center gap-2 rounded-full border border-[#E7DFD5] bg-white px-3 py-2 text-xs font-semibold text-[#171311] transition hover:border-[#A58A63] hover:text-[#A58A63] md:inline-flex"
                 aria-label="Ma sélection"
               >
                 <ShoppingBag className="h-4 w-4" />
@@ -170,7 +170,7 @@ export function Navbar() {
 
               <Link
                 to="/admin/login"
-                className="hidden rounded-full border border-[#171311] bg-[#171311] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#2A241F] md:inline-flex"
+                className="hidden rounded-full border border-[#171311] bg-[#171311] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#2A241F] md:inline-flex"
               >
                 Espace admin
               </Link>
@@ -178,7 +178,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E7DFD5] bg-white text-[#4C4138] transition hover:border-[#A58A63] hover:text-[#171311] md:hidden"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E7DFD5] bg-white text-[#4C4138] transition hover:border-[#A58A63] hover:text-[#171311] md:hidden"
                 aria-label="Ouvrir le menu"
               >
                 <Menu className="h-5 w-5" />
