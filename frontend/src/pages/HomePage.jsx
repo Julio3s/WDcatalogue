@@ -124,7 +124,7 @@ export default function HomePage() {
             alt=""
             aria-hidden="true"
             className="h-full w-full object-cover object-center"
-            style={{ filter: 'blur(6px)', animation: 'heroOrbit 20s linear infinite' }}
+            style={{ filter: 'blur(6px)' }}
           />
         </div>
         <div
@@ -334,12 +334,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <style>{`
-        @keyframes heroOrbit {
-          from { transform: translateY(0px) translateX(0px) rotate(0deg); }
-          to { transform: translateY(0px) translateX(0px) rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }
