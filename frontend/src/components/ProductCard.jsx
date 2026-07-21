@@ -1,22 +1,9 @@
-import { ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
-import { useSelectionStore } from '../store/selectionStore';
 import { getProductImage } from '../utils/media';
 
 export function ProductCard({ product, badgeLabel, className = '' }) {
   const image = getProductImage(product);
-  const addItem = useSelectionStore((state) => state.addItem);
-  const [added, setAdded] = useState(false);
-
-  const handleAdd = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addItem(product, 1);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
-  };
 
   return (
     <article
@@ -64,15 +51,6 @@ export function ProductCard({ product, badgeLabel, className = '' }) {
           ) : null}
         </Link>
 
-        <button
-          onClick={handleAdd}
-          className={`mt-auto flex w-full items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium transition ${
-            added ? 'bg-green-600 text-white' : 'bg-gray-900 text-white hover:bg-gray-800'
-          }`}
-        >
-          <ShoppingBag className="h-3.5 w-3.5" />
-          {added ? 'Ajouté à la sélection' : 'Ajouter à la sélection'}
-        </button>
       </div>
     </article>
   );
