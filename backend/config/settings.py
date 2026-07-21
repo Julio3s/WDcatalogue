@@ -47,6 +47,11 @@ render_host = config('RENDER_EXTERNAL_HOSTNAME', default='')
 if render_host:
     ALLOWED_HOSTS.append(render_host)
 
+# Ajout des domaines personnalisés
+for custom_host in ['www.worlddesigncatalogue.com', 'worlddesigncatalogue.com']:
+    if custom_host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(custom_host)
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -225,10 +230,16 @@ CORS_ALLOWED_ORIGINS = config(
     default='http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000',
     cast=Csv(),
 )
+for custom_origin in ['https://www.worlddesigncatalogue.com', 'https://worlddesigncatalogue.com']:
+    if custom_origin not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(custom_origin)
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='', cast=Csv())
 if render_host:
     CSRF_TRUSTED_ORIGINS.append(f'https://{render_host}')
+for trusted_origin in ['https://www.worlddesigncatalogue.com', 'https://worlddesigncatalogue.com']:
+    if trusted_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(trusted_origin)
 
 # Render terminates TLS before Django, so trust the proxy headers in production.
 USE_X_FORWARDED_HOST = True
