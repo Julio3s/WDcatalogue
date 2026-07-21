@@ -143,13 +143,12 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-[#F6F1EA]">
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="border-b border-[#F0E8DE] bg-gradient-to-br from-[#FFFDF8] via-[#FFF8F0] to-[#F7EFE4] px-6 py-8 sm:px-8 sm:py-10">
-          <SectionHeading
-            eyebrow="Catalogue"
-            title="Des objets pensés pour représenter votre marque"
-            description="Filtrez les pièces, explorez les visuels et conservez celles qui vous ressemblent dans votre sélection."
-          />
-        </div>
+          <div className="border-b border-[#F0E8DE] bg-gradient-to-br from-[#FFFDF8] via-[#FFF8F0] to-[#F7EFE4] px-6 py-8 sm:px-8 sm:py-10">
+            <SectionHeading
+              eyebrow="Catalogue"
+              title="Des objets pensés pour représenter votre marque"
+            />
+          </div>
 
         <div className="px-6 py-6 sm:px-8">
           <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr_auto]">
