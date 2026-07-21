@@ -50,24 +50,6 @@ const JOURNEY = [
   },
 ];
 
-const VALUE_CARDS = [
-  {
-    icon: Sparkles,
-    title: 'Présentation soignée',
-    text: 'Des visuels nets, des blocs aérés et des titres lisibles pour voir vite ce qui compte.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Cadre fiable',
-    text: 'Le visiteur n’a rien à créer, la sélection reste dans le navigateur et l’administration garde la main.',
-  },
-  {
-    icon: ShoppingBag,
-    title: 'Demande fluide',
-    text: 'Vous rassemblez vos choix, puis vous les envoyez en un seul message sur WhatsApp.',
-  },
-];
-
 const FAQ = [
   {
     q: 'Combien de temps pour recevoir un retour ?',
@@ -294,29 +276,6 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#1A1A2E] py-16 text-white">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Pourquoi ça marche"
-          title="Une vitrine qui va droit au but"
-          description="Des cartes lisibles, des visuels généreux et des actions claires pour avancer sans perdre de temps."
-          align="center"
-        />
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {VALUE_CARDS.map(({ icon: Icon, title, text }) => (
-              <div key={title} className="rounded-[24px] border border-white/10 bg-white/5 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-[#F5A623]">
-                <Icon className="h-5 w-5" />
-              </div>
-              <h3 className="mt-4 text-lg font-semibold text-white">{title}</h3>
-              <p className="mt-2 text-sm leading-7 text-white/70">{text}</p>
-            </div>
-            ))}
           </div>
         </div>
       </section>
