@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Search, SearchX, ChevronDown, ArrowRight } from 'lucide-react';
+import { Search, SearchX, ChevronDown } from 'lucide-react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 import { getCategories, getProducts } from '../api/catalog';
@@ -232,54 +232,27 @@ export default function ProductsPage() {
                 <ErrorState description={error} onRetry={() => window.location.reload()} />
               </div>
             ) : productsData.results.length > 0 ? (
-              <div className="mt-2">
-                {Array.from({ length: Math.ceil(productsData.results.length / 7) }).map((_, rowIndex) => {
-                  const row = productsData.results.slice(rowIndex * 7, rowIndex * 7 + 7);
-                  return (
-                    <div key={rowIndex} className="group/row relative mt-6 first:mt-0">
-                      <div
-                        id={`product-row-${rowIndex}`}
-                        className="flex gap-4 overflow-x-auto scroll-smooth pb-2"
-                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                      >
-                        <style>{`#product-row-${rowIndex}::-webkit-scrollbar { display: none; }`}</style>
-                        {row.map((product) => (
-                          <div key={product.id} className="min-w-[160px] flex-shrink-0">
-                            <ProductCard product={product} />
-                          </div>
-                        ))}
-                      </div>
+              <>
+                <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                  {productsData.results.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
 
-                      {row.length >= 7 && (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const el = document.getElementById(`product-row-${rowIndex}`);
-                              if (el) el.scrollBy({ left: -700, behavior: 'smooth' });
-                            }}
-                            className="absolute left-0 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg transition hover:bg-white group-hover/row:block"
-                            aria-label="Défiler vers la gauche"
-                          >
-                            <ArrowRight className="h-5 w-5 rotate-180" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const el = document.getElementById(`product-row-${rowIndex}`);
-                              if (el) el.scrollBy({ left: 700, behavior: 'smooth' });
-                            }}
-                            className="absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg transition hover:bg-white group-hover/row:block"
-                            aria-label="Défiler vers la droite"
-                          >
-                            <ArrowRight className="h-5 w-5" />
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+                {totalPages > 1 && (
+                  <div className="mt-8 flex justify-center">
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onPageChange={(page) => {
+                        const nextParams = new URLSearchParams(searchParams);
+                        nextParams.set('page', String(page));
+                        setSearchParams(nextParams, { replace: false });
+                      }}
+                    />
+                  </div>
+                )}
+              </>
             ) : (
               <div className="mt-2">
                 <EmptyState
