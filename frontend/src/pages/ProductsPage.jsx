@@ -65,6 +65,10 @@ export default function ProductsPage() {
   }, [location.state, location.pathname, location.search]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
+
+  useEffect(() => {
     let isMounted = true;
 
     async function loadProducts() {
