@@ -147,7 +147,7 @@ export default function HomePage() {
                 à votre marque
               </span>
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82 sm:mt-5 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white sm:mt-5 sm:text-lg">
               Parcourez une sélection de goodies personnalisés, préparez votre demande en quelques gestes
               et envoyez-la à notre équipe pour obtenir un devis clair, rapide et adapté à votre projet.
             </p>
