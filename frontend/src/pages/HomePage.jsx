@@ -128,7 +128,7 @@ export default function HomePage() {
           />
         </div>
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-[#F6F1EA]"
+          className="absolute inset-0 bg-black/70"
           aria-hidden="true"
         />
         <div
