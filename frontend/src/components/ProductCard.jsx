@@ -15,7 +15,7 @@ export function ProductCard({ product, badgeLabel, className = '' }) {
       ].join(' ')}
     >
       <Link to={`/products/${product.slug}`} className="block">
-        <div className="relative h-[240px] w-full overflow-hidden bg-[#F1ECE6] sm:h-[260px] lg:h-[280px]">
+        <div className="relative h-[220px] w-full overflow-hidden bg-[#F1ECE6] sm:h-[240px] lg:h-[260px]">
           {image ? (
             <img
               src={image}
