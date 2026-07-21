@@ -109,10 +109,10 @@ export default function ProductDetailPage() {
           <span className="truncate font-medium text-[#171311]">{product.name}</span>
         </nav>
 
-        <div className="overflow-hidden rounded-[32px] border border-[#E5DDD4] bg-white shadow-[0_20px_60px_rgba(19,16,13,0.06)]">
+        <div className="overflow-hidden rounded-[32px] bg-white">
           <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="bg-[#FBF8F3] p-4 sm:p-6">
-              <div className="rounded-[28px] bg-white p-3 shadow-[0_12px_40px_rgba(19,16,13,0.05)] sm:p-4">
+              <div className="rounded-[28px] bg-white p-3 sm:p-4">
                 <ProductImageCarousel images={images} productName={product.name} />
               </div>
             </div>

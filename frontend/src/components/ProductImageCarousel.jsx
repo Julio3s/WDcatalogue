@@ -210,7 +210,7 @@ export default function ProductImageCarousel({ images, productName }) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-[520px] overflow-hidden rounded-[8px] border border-[#E0DBD5] bg-white">
+    <div className="mx-auto w-full max-w-[520px] overflow-hidden rounded-[8px] bg-white">
       <div
         className="group/carousel relative aspect-square bg-[#F1ECE6] select-none"
         onTouchStart={handleTouchStart}
