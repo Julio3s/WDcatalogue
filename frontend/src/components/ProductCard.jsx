@@ -22,13 +22,13 @@ export function ProductCard({ product, badgeLabel, className = '' }) {
     <article
       data-product-id={product.id}
       className={[
-        'group relative flex w-[170px] flex-col overflow-hidden bg-white transition-all duration-200',
+        'group relative flex h-full flex-col overflow-hidden bg-white transition-all duration-200',
         'shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.1)]',
         className,
       ].join(' ')}
     >
       <Link to={`/products/${product.slug}`} className="block">
-        <div className="relative h-[170px] w-full overflow-hidden bg-[#F1ECE6]">
+        <div className="relative h-[210px] w-full overflow-hidden bg-[#F1ECE6] sm:h-[230px] lg:h-[250px]">
           {image ? (
             <img
               src={image}
@@ -52,7 +52,7 @@ export function ProductCard({ product, badgeLabel, className = '' }) {
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col gap-2 p-3">
+      <div className="flex flex-1 flex-col gap-2 p-4 sm:p-4.5">
         <Link to={`/products/${product.slug}`} className="block">
           <h3 className="text-sm font-semibold leading-tight text-gray-900 sm:text-base">
             {product.name}
