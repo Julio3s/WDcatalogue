@@ -143,133 +143,131 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-[#F6F1EA]">
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[32px] border border-[#E5DDD4] bg-white shadow-[0_20px_60px_rgba(19,16,13,0.06)]">
-          <div className="border-b border-[#F0E8DE] bg-gradient-to-br from-[#FFFDF8] via-[#FFF8F0] to-[#F7EFE4] px-6 py-8 sm:px-8 sm:py-10">
-            <SectionHeading
-              eyebrow="Catalogue"
-              title="Des objets pensés pour représenter votre marque"
-              description="Filtrez les pièces, explorez les visuels et conservez celles qui vous ressemblent dans votre sélection."
-            />
-          </div>
+        <div className="border-b border-[#F0E8DE] bg-gradient-to-br from-[#FFFDF8] via-[#FFF8F0] to-[#F7EFE4] px-6 py-8 sm:px-8 sm:py-10">
+          <SectionHeading
+            eyebrow="Catalogue"
+            title="Des objets pensés pour représenter votre marque"
+            description="Filtrez les pièces, explorez les visuels et conservez celles qui vous ressemblent dans votre sélection."
+          />
+        </div>
 
-          <div className="px-6 py-6 sm:px-8">
-            <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr_auto]">
-              <label className="block">
-                <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-[#8D8175]">
-                  Rechercher
-                </span>
-                <div className="relative">
-                  <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A9A095]" />
-                  <input
-                    value={searchInput}
-                    onChange={handleSearchChange}
-                    placeholder="Nom du produit, mot-clé, référence..."
-                    className="h-12 w-full rounded-full border border-[#E5DDD4] bg-[#FCFAF6] pl-11 pr-4 text-sm text-[#171311] outline-none transition placeholder:text-[#B9ADA0] focus:border-[#171311]"
-                  />
-                </div>
-              </label>
-
-              <label className="block">
-                <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-[#8D8175]">
-                  Catégorie
-                </span>
-                <div className="relative">
-                  <select
-                    value={activeCategory}
-                    onChange={(e) => handleCategoryChange(e.target.value)}
-                    className="h-12 w-full appearance-none rounded-full border border-[#E5DDD4] bg-[#FCFAF6] px-4 pr-10 text-sm text-[#171311] outline-none transition focus:border-[#171311]"
-                  >
-                    <option value="">Toutes les catégories</option>
-                    {loadingCategories ? (
-                      <option value="">Chargement...</option>
-                    ) : (
-                      categories.map((category) => (
-                        <option key={category.id} value={category.slug}>
-                          {category.name}
-                        </option>
-                      ))
-                    )}
-                  </select>
-                  <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A9A095]" />
-                </div>
-              </label>
-
-              <div className="flex items-end">
-                {(activeCategory || searchParams.get('search')) && (
-                  <button
-                    type="button"
-                    onClick={resetFilters}
-                    className="inline-flex h-12 items-center gap-2 rounded-full border border-[#E5DDD4] bg-white px-4 text-sm font-semibold text-[#171311] transition hover:border-[#A58A63] hover:text-[#A58A63]"
-                  >
-                    <SearchX className="h-4 w-4" />
-                    Réinitialiser
-                  </button>
-                )}
+        <div className="px-6 py-6 sm:px-8">
+          <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr_auto]">
+            <label className="block">
+              <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-[#8D8175]">
+                Rechercher
+              </span>
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A9A095]" />
+                <input
+                  value={searchInput}
+                  onChange={handleSearchChange}
+                  placeholder="Nom du produit, mot-clé, référence..."
+                  className="h-12 w-full rounded-full border border-[#E5DDD4] bg-[#FCFAF6] pl-11 pr-4 text-sm text-[#171311] outline-none transition placeholder:text-[#B9ADA0] focus:border-[#171311]"
+                />
               </div>
-            </div>
+            </label>
 
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-[#6F6257]">
-                {loading
-                  ? 'Chargement des pièces...'
-                  : `${productsData.count} résultat(s) dans ${activeCategoryLabel}`}
-              </p>
-              {!loading && totalPages > 1 && (
-                <p className="text-sm text-[#6F6257]">
-                  Page {currentPage} sur {totalPages}
-                </p>
+            <label className="block">
+              <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-[#8D8175]">
+                Catégorie
+              </span>
+              <div className="relative">
+                <select
+                  value={activeCategory}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
+                  className="h-12 w-full appearance-none rounded-full border border-[#E5DDD4] bg-[#FCFAF6] px-4 pr-10 text-sm text-[#171311] outline-none transition focus:border-[#171311]"
+                >
+                  <option value="">Toutes les catégories</option>
+                  {loadingCategories ? (
+                    <option value="">Chargement...</option>
+                  ) : (
+                    categories.map((category) => (
+                      <option key={category.id} value={category.slug}>
+                        {category.name}
+                      </option>
+                    ))
+                  )}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A9A095]" />
+              </div>
+            </label>
+
+            <div className="flex items-end">
+              {(activeCategory || searchParams.get('search')) && (
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="inline-flex h-12 items-center gap-2 rounded-full border border-[#E5DDD4] bg-white px-4 text-sm font-semibold text-[#171311] transition hover:border-[#A58A63] hover:text-[#A58A63]"
+                >
+                  <SearchX className="h-4 w-4" />
+                  Réinitialiser
+                </button>
               )}
             </div>
           </div>
 
-          <div className="px-6 pb-8 sm:px-8">
-            {loading ? (
-              <div className="mt-2">
-                <ProductGridSkeleton count={6} />
-              </div>
-            ) : error ? (
-              <div className="mt-2">
-                <ErrorState description={error} onRetry={() => window.location.reload()} />
-              </div>
-            ) : productsData.results.length > 0 ? (
-              <>
-                <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                  {productsData.results.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-
-                {totalPages > 1 && (
-                  <div className="mt-8 flex justify-center">
-                    <Pagination
-                      currentPage={currentPage}
-                      totalPages={totalPages}
-                      onPageChange={(page) => {
-                        const nextParams = new URLSearchParams(searchParams);
-                        nextParams.set('page', String(page));
-                        setSearchParams(nextParams, { replace: false });
-                      }}
-                    />
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="mt-2">
-                <EmptyState
-                  title="Aucun résultat"
-                  description="Essayez une autre catégorie ou un autre mot-clé pour découvrir davantage de pièces."
-                  action={(
-                    <Link
-                      to="/"
-                      className="inline-flex items-center gap-2 rounded-full bg-[#171311] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#2A241F]"
-                    >
-                      Retour à l'accueil
-                    </Link>
-                  )}
-                />
-              </div>
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-[#6F6257]">
+              {loading
+                ? 'Chargement des pièces...'
+                : `${productsData.count} résultat(s) dans ${activeCategoryLabel}`}
+            </p>
+            {!loading && totalPages > 1 && (
+              <p className="text-sm text-[#6F6257]">
+                Page {currentPage} sur {totalPages}
+              </p>
             )}
           </div>
+        </div>
+
+        <div className="px-6 pb-8 sm:px-8">
+          {loading ? (
+            <div className="mt-2">
+              <ProductGridSkeleton count={6} />
+            </div>
+          ) : error ? (
+            <div className="mt-2">
+              <ErrorState description={error} onRetry={() => window.location.reload()} />
+            </div>
+          ) : productsData.results.length > 0 ? (
+            <>
+              <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                {productsData.results.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="mt-8 flex justify-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={(page) => {
+                      const nextParams = new URLSearchParams(searchParams);
+                      nextParams.set('page', String(page));
+                      setSearchParams(nextParams, { replace: false });
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="mt-2">
+              <EmptyState
+                title="Aucun résultat"
+                description="Essayez une autre catégorie ou un autre mot-clé pour découvrir davantage de pièces."
+                action={(
+                  <Link
+                    to="/"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#171311] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#2A241F]"
+                  >
+                    Retour à l'accueil
+                  </Link>
+                )}
+              />
+            </div>
+          )}
         </div>
       </section>
     </div>
