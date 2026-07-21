@@ -31,9 +31,9 @@ export function CategoryCard({ category }) {
         </span>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4 sm:p-4.5">
-        <h3 className="text-sm font-semibold leading-tight text-gray-900 sm:text-base">
+        <span className="text-xs leading-relaxed text-gray-500">
           {category.name}
-        </h3>
+        </span>
         <span className="text-xs leading-relaxed text-gray-500">
           Voir les produits
         </span>
