@@ -213,7 +213,7 @@ export default function HomePage() {
                 ))}
               </div>
             ) : categoryPreview.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
                 {categoryPreview.map((category) => (
                   <CategoryCard key={category.id} category={category} />
                 ))}
