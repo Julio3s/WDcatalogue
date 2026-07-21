@@ -232,7 +232,7 @@ export default function ProductsPage() {
             </div>
           ) : productsData.results.length > 0 ? (
             <>
-              <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
                 {productsData.results.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
