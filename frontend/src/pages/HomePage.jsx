@@ -124,6 +124,7 @@ export default function HomePage() {
             alt=""
             aria-hidden="true"
             className="h-full w-full object-cover object-center"
+            style={{ filter: 'blur(6px)' }}
           />
         </div>
         <div
