@@ -8,7 +8,7 @@ export function CategoryCard({ category }) {
   return (
     <Link
       to={`/products?category=${encodeURIComponent(category.slug)}`}
-      className="group flex overflow-hidden rounded-[24px] border border-[#E0DBD5] bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-1 hover:border-accent hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+      className="group flex overflow-hidden border border-[#E0DBD5] bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-1 hover:border-accent hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
       state={{ selectedCategory: category.slug }}
     >
       <div className="h-44 w-24 flex-none overflow-hidden sm:h-56 sm:w-28">

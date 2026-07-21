@@ -22,7 +22,7 @@ export function ProductCard({ product, badgeLabel, className = '' }) {
     <article
       data-product-id={product.id}
       className={[
-        'group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white transition-all duration-200',
+        'group relative flex h-full flex-col overflow-hidden bg-white transition-all duration-200',
         'shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.1)]',
         className,
       ].join(' ')}
@@ -45,7 +45,7 @@ export function ProductCard({ product, badgeLabel, className = '' }) {
             </div>
           )}
           {badgeLabel ? (
-            <span className="absolute left-3 top-3 inline-flex rounded-full bg-gray-900 px-3 py-1 text-xs font-semibold tracking-wide text-white">
+            <span className="absolute left-3 top-3 inline-flex bg-gray-900 px-3 py-1 text-xs font-semibold tracking-wide text-white">
               {badgeLabel}
             </span>
           ) : null}
@@ -66,7 +66,7 @@ export function ProductCard({ product, badgeLabel, className = '' }) {
 
         <button
           onClick={handleAdd}
-          className={`mt-auto flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition ${
+          className={`mt-auto flex w-full items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium transition ${
             added ? 'bg-green-600 text-white' : 'bg-gray-900 text-white hover:bg-gray-800'
           }`}
         >
