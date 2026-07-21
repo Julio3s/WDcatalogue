@@ -139,7 +139,7 @@ export default function ProductDetailPage() {
                 </span>
               </div>
 
-              <p className="mt-6 text-base leading-8 text-[#6F6257]">{product.description}</p>
+              <p className="mt-6 text-base leading-7 text-[#6F6257]">{product.description}</p>
 
               {product.has_models && Array.isArray(product.models) && product.models.length > 0 ? (
                 <div className="mt-8">
@@ -167,7 +167,7 @@ export default function ProductDetailPage() {
               {product.is_customizable ? (
                 <div className="mt-8">
                   <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8D8175]">
-                    Informations complémentaires
+                    Texte de personnalisation
                   </h3>
                   <textarea
                     value={customText}
