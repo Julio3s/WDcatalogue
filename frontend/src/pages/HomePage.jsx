@@ -124,11 +124,11 @@ export default function HomePage() {
             alt=""
             aria-hidden="true"
             className="h-full w-full object-cover object-center"
-            style={{ filter: 'blur(6px)' }}
+            style={{}}
           />
         </div>
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/82 via-black/56 to-[#F6F1EA]"
+          className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-[#F6F1EA]"
           aria-hidden="true"
         />
         <div
