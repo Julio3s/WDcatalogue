@@ -240,7 +240,7 @@ export function Navbar() {
               <span>Sélection</span>
             </MobileNavLink>
 
-            <MobileDockButton active={searchOpen} onClick={() => setMobileOpen(true)}>
+            <MobileDockButton active={mobileOpen} onClick={() => setMobileOpen(true)}>
               <Menu className="h-5 w-5" />
               <span>Menu</span>
             </MobileDockButton>
