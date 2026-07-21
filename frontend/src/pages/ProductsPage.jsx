@@ -244,9 +244,7 @@ export default function ProductsPage() {
                       >
                         <style>{`#product-row-${rowIndex}::-webkit-scrollbar { display: none; }`}</style>
                         {row.map((product) => (
-                          <div key={product.id} className="min-w-[160px] flex-shrink-0">
-                            <ProductCard product={product} />
-                          </div>
+                          <ProductCard key={product.id} product={product} />
                         ))}
                       </div>
 
