@@ -153,10 +153,10 @@ export default function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[40svh] w-full max-w-7xl items-start px-4 pb-6 pt-0 sm:min-h-[44svh] sm:px-6 sm:pt-1 lg:px-8 lg:pt-2">
-          <div className="max-w-3xl pt-0">
+        <div className="relative z-10 mx-auto flex min-h-[40svh] w-full max-w-7xl items-start px-4 pb-6 pt-3 sm:min-h-[44svh] sm:px-6 sm:pt-5 lg:px-8 lg:pt-7">
+          <div className="max-w-3xl pt-1 sm:pt-0">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/85 backdrop-blur-md">
-              Catalogue public
+              Catalogue premium
             </p>
             <h1 className="mt-5 max-w-2xl text-3xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Des objets qui donnent du relief
@@ -192,8 +192,7 @@ export default function HomePage() {
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Pièces à voir"
-          title="Les références à surveiller"
-          description="Une sélection courte pour voir le rendu des matières, des finitions et des usages les plus parlants."
+          title="SELECTION RAPIDE"
         />
 
         <div className="mt-10">
@@ -220,8 +219,7 @@ export default function HomePage() {
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Univers"
-          title="Des univers pensés par usage"
-          description="Chaque catégorie rassemble des références proches pour vous aider à aller droit à l’essentiel."
+          title="CATEGORIES DE PRODUITS"
         />
 
           <div className="mt-10">
@@ -254,23 +252,49 @@ export default function HomePage() {
           description="Ouvrir, comparer, ajouter, envoyer: le parcours reste court et lisible sur mobile comme sur desktop."
         />
 
-        <div className="mt-10 grid gap-4 lg:grid-cols-4">
-          {JOURNEY.map(({ num, icon: Icon, title, desc }, index) => (
-            <div
-              key={num}
-              className="rounded-[24px] border border-[#E0DBD5] bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
-              style={{ animationDelay: `${index * 70}ms` }}
+        <div className="relative mt-10">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#F6F1EA] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#F6F1EA] to-transparent" />
+
+          <div className="mb-4 flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => document.getElementById('journey-scroll')?.scrollBy({ left: -360, behavior: 'smooth' })}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#E0DBD5] bg-white text-[#1A1A1A] shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition hover:border-[#A58A63] hover:text-[#A58A63]"
+              aria-label="Défiler les étapes vers la gauche"
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F8F5F0] text-accent">
-                <Icon className="h-6 w-6" />
-              </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-                Étape {num}
-              </p>
-              <h3 className="mt-2 text-lg font-semibold text-text-dark">{title}</h3>
-              <p className="mt-2 text-sm leading-7 text-text-muted">{desc}</p>
+              <ArrowRight className="h-4 w-4 rotate-180" />
+            </button>
+            <button
+              type="button"
+              onClick={() => document.getElementById('journey-scroll')?.scrollBy({ left: 360, behavior: 'smooth' })}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#E0DBD5] bg-white text-[#1A1A1A] shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition hover:border-[#A58A63] hover:text-[#A58A63]"
+              aria-label="Défiler les étapes vers la droite"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          <div id="journey-scroll" className="overflow-x-auto pb-3 scroll-smooth">
+            <div className="flex min-w-max gap-4 snap-x snap-mandatory pr-12">
+              {JOURNEY.map(({ num, icon: Icon, title, desc }, index) => (
+                <div
+                  key={num}
+                  className="w-[18rem] shrink-0 snap-start rounded-[24px] border border-[#E0DBD5] bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] sm:w-[20rem] lg:w-[22rem]"
+                  style={{ animationDelay: `${index * 70}ms` }}
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F8F5F0] text-accent">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+                    Étape {num}
+                  </p>
+                  <h3 className="mt-2 text-lg font-semibold text-text-dark">{title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-text-muted">{desc}</p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
