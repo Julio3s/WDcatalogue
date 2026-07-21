@@ -111,10 +111,8 @@ export default function ProductDetailPage() {
 
         <div className="overflow-hidden rounded-[32px] bg-white">
           <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="bg-[#FBF8F3] p-4 sm:p-6">
-              <div className="rounded-[28px] bg-white p-3 sm:p-4">
-                <ProductImageCarousel images={images} productName={product.name} />
-              </div>
+            <div className="p-4 sm:p-6">
+              <ProductImageCarousel images={images} productName={product.name} />
             </div>
 
             <div className="flex flex-col px-5 py-6 sm:px-7 sm:py-8 lg:px-8 lg:py-10">
