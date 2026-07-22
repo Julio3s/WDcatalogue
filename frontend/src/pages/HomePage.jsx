@@ -213,11 +213,22 @@ export default function HomePage() {
                 ))}
               </div>
             ) : categoryPreview.length > 0 ? (
-              <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
-                {categoryPreview.map((category) => (
-                  <CategoryCard key={category.id} category={category} />
-                ))}
-              </div>
+              <>
+                <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
+                  {categoryPreview.map((category) => (
+                    <CategoryCard key={category.id} category={category} />
+                  ))}
+                </div>
+                <div className="mt-8 text-center">
+                  <Link
+                    to="/categories"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-[#E5DDD4] bg-white px-6 py-3 text-sm font-semibold text-[#171311] transition hover:border-[#A58A63] hover:text-[#A58A63]"
+                  >
+                    Voir toutes les catégories
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </>
             ) : (
               <EmptyState
                 title="Aucune catégorie disponible"

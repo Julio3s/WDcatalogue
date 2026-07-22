@@ -8,6 +8,7 @@ import { PublicLayout } from './components/PublicLayout';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const ProductsPage = lazy(() => import('./pages/ProductsPage'));
+const CategoriesPage = lazy(() => import('./pages/CategoriesPage'));
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const SelectionPage = lazy(() => import('./pages/SelectionPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
@@ -32,6 +33,7 @@ export default function App() {
         <Routes>
           <Route element={<PublicLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="categories" element={<CategoriesPage />} />
             <Route path="products" element={<ProductsPage />} />
             <Route path="products/:slug" element={<ProductDetailPage />} />
             <Route path="ma-selection" element={<SelectionPage />} />
