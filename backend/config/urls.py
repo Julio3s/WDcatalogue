@@ -12,6 +12,7 @@ urlpatterns = [
     path('api/products/', include('apps.products.urls')),
     path('api/admin/products/', include('apps.products.admin_urls')),
     path('api/admin/categories/', include('apps.products.admin_categories_urls')),
+    path('api/health/', include('apps.health.urls')),
 ]
 
 if settings.DEBUG:

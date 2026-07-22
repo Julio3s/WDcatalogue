@@ -1,0 +1,29 @@
+name: Keep Render Website Awake
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Toutes les 10 minutes
+  workflow_dispatch:  # Permet de lancer manuellement
+
+jobs:
+  ping:
+    name: Ping Render services
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Backend (health check)
+        run: |
+          curl -s -o /dev/null -w "Backend: %{http_code}\n" \
+            https://world-design-backend.onrender.com/api/health/
+
+      - name: Ping Frontend
+        run: |
+          curl -s -o /dev/null -w "Frontend: %{http_code}\n" \
+            https://world-design-frontend.onrender.com
+
+      - name: Wait before next check
+        run: sleep 5
+
+      - name: Second ping Backend
+        run: |
+          curl -s -o /dev/null -w "Backend (2): %{http_code}\n" \
+            https://world-design-backend.onrender.com/api/health/
