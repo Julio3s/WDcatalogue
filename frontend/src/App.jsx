@@ -14,6 +14,7 @@ const SelectionPage = lazy(() => import('./pages/SelectionPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 import AdminLoginPage from './pages/admin/AdminLogin';
 import AdminDashboardPage from './pages/admin/DashboardPage';
+import AdminSearchPage from './pages/admin/SearchPage';
 import AdminProductsPage from './pages/admin/ProductsPage';
 import AdminCategoriesPage from './pages/admin/CategoriesPage';
 const InfoPage = lazy(() => import('./pages/InfoPage'));
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboardPage />} />
+            <Route path="search" element={<AdminSearchPage />} />
             <Route path="products" element={<AdminProductsPage />} />
             <Route path="categories" element={<AdminCategoriesPage />} />
           </Route>

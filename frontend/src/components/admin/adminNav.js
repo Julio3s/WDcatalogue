@@ -1,4 +1,4 @@
-import { LayoutDashboard, Package, Tags } from 'lucide-react';
+import { LayoutDashboard, Package, Search, Tags } from 'lucide-react';
 
 export const ADMIN_NAV_ITEMS = [
   {
@@ -7,6 +7,13 @@ export const ADMIN_NAV_ITEMS = [
     shortLabel: 'Accueil',
     breadcrumb: 'Dashboard',
     icon: LayoutDashboard,
+  },
+  {
+    to: '/admin/search',
+    label: 'Recherche',
+    shortLabel: 'Recherche',
+    breadcrumb: 'Recherche',
+    icon: Search,
   },
   {
     to: '/admin/products',
