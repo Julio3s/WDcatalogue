@@ -4,13 +4,13 @@ import { Mail, Phone, MapPin, Heart, Share2, Send } from 'lucide-react';
 const FOOTER_LINKS = [
   { to: '/products', label: 'Catalogue' },
   { to: '/ma-selection', label: 'Ma sélection' },
-  { to: '/admin/login', label: 'Espace admin' },
 ];
 
 const INFO_LINKS = [
   { to: '/info', label: 'À propos' },
   { to: '/faq', label: 'FAQ' },
   { to: '/conditions', label: "Conditions d'utilisation" },
+  { to: '/admin/login', label: 'Accès interne' },
 ];
 
 export function Footer() {

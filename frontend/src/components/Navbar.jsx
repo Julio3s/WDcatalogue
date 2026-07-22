@@ -168,13 +168,6 @@ export function Navbar() {
                 ) : null}
               </Link>
 
-              <Link
-                to="/admin/login"
-                className="hidden rounded-full border border-[#171311] bg-[#171311] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#2A241F] md:inline-flex"
-              >
-                Espace admin
-              </Link>
-
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
@@ -336,14 +329,6 @@ export function Navbar() {
                       {selectionCount > 99 ? '99+' : selectionCount}
                     </span>
                   ) : null}
-                </Link>
-
-                <Link
-                  to="/admin/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-2xl border border-[#171311] bg-[#171311] px-4 py-4 text-center text-base font-semibold text-white transition hover:bg-[#2A241F]"
-                >
-                  Espace admin
                 </Link>
               </div>
 
