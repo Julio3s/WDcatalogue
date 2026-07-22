@@ -10,6 +10,7 @@ import {
 } from '../../api/adminProducts';
 import { getCategories } from '../../api/catalog';
 import { AdminPage } from '../../components/admin/AdminPage';
+import { AdminSearchBar } from '../../components/admin/AdminSearchBar';
 import { ProductFormModal } from '../../components/admin/ProductFormModal';
 import { ErrorState } from '../../components/ErrorState';
 import FilterDrawer from '../../components/FilterDrawer';
@@ -204,6 +205,7 @@ export default function ProductsPage() {
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
+          <AdminSearchBar onSearch={setSearch} />
           <FilterDrawer label="Filtrer ici">
             <div className="space-y-4">
               <label className="flex flex-col gap-2 text-sm font-medium text-text-dark">

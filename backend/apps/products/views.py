@@ -1,7 +1,8 @@
 import logging
 
 from django.db import IntegrityError
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Value, CharField
+from django.db.models.functions import Concat
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes, permission_classes
@@ -40,6 +41,33 @@ def _normalize_admin_payload(data):
         else:
             payload[key] = value
     return payload
+
+
+def _apply_product_search(queryset, search):
+    """Recherche puissante sur les produits : nom, description, catégorie, référence (WDxxxx)."""
+    if not search or not search.strip():
+        return queryset
+
+    query = search.strip().lower()
+
+    # Recherche par référence formatée (ex: WD0001, wd42)
+    if query.startswith('wd'):
+        ref_num = query[2:].lstrip('0')
+        if ref_num.isdigit():
+            return queryset.filter(id=int(ref_num))
+
+    # Recherche par ID simple
+    if query.isdigit():
+        return queryset.filter(Q(id=int(query)) | Q(name__icontains=query))
+
+    # Recherche full-text sur nom, description, slug, catégorie
+    return queryset.filter(
+        Q(name__icontains=query)
+        | Q(slug__icontains=query)
+        | Q(description__icontains=query)
+        | Q(category__name__icontains=query)
+        | Q(category__slug__icontains=query)
+    )
 
 
 @api_view(['GET'])
@@ -164,13 +192,7 @@ def admin_products(request):
 
         search = request.query_params.get('search', '').strip()
         if search:
-            products = products.filter(
-                Q(name__icontains=search)
-                | Q(slug__icontains=search)
-                | Q(description__icontains=search)
-                | Q(category__name__icontains=search)
-                | Q(category__slug__icontains=search)
-            )
+            products = _apply_product_search(products, search)
 
         is_active = request.query_params.get('is_active')
         if is_active is not None:
