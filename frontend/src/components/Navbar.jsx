@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, Search, ShoppingBag, X, House, LayoutGrid, Info, HelpCircle } from 'lucide-react';
+import { Menu, Search, ShoppingBag, X, House, LayoutGrid, Info, HelpCircle, Heart } from 'lucide-react';
 
+import { useFavoritesStore } from '../store/favoritesStore';
 import { useSelectionStore } from '../store/selectionStore';
 
 const NAV_LINKS = [
@@ -76,8 +77,10 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const items = useSelectionStore((state) => state.items);
+  const favorites = useFavoritesStore((state) => state.favorites);
 
   const selectionCount = items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+  const favoritesCount = favorites.length;
   const isHome = location.pathname === '/';
   const isCatalogue = location.pathname.startsWith('/products');
   const isSelection = location.pathname === '/ma-selection';
@@ -168,6 +171,20 @@ export function Navbar() {
                 ) : null}
               </Link>
 
+              <Link
+                to="/favoris"
+                className="relative hidden items-center gap-2 rounded-full border border-[#E7DFD5] bg-white px-3 py-2 text-xs font-semibold text-[#171311] transition hover:border-[#E94560] hover:text-[#E94560] md:inline-flex"
+                aria-label="Mes favoris"
+              >
+                <Heart className="h-4 w-4" />
+                Favoris
+                {favoritesCount > 0 ? (
+                  <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-[#E94560] px-1.5 py-0.5 text-[10px] font-bold leading-none text-white">
+                    {favoritesCount > 99 ? '99+' : favoritesCount}
+                  </span>
+                ) : null}
+              </Link>
+
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
@@ -199,7 +216,7 @@ export function Navbar() {
 
       <div className="md:hidden">
         <nav className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#E7DFD5] bg-[rgba(255,252,247,0.94)] px-3 py-3 backdrop-blur-xl">
-          <div className="mx-auto grid max-w-7xl grid-cols-4 gap-2">
+          <div className="mx-auto grid max-w-7xl grid-cols-5 gap-1.5">
             <MobileNavLink
               to="/"
               end
@@ -216,6 +233,21 @@ export function Navbar() {
             >
               <LayoutGrid className="h-5 w-5" />
               <span>Catalogue</span>
+            </MobileNavLink>
+
+            <MobileNavLink
+              to="/favoris"
+              onClick={() => setMobileOpen(false)}
+            >
+              <span className="relative">
+                <Heart className="h-5 w-5" />
+                {favoritesCount > 0 ? (
+                  <span className="absolute -right-2 -top-2 inline-flex min-w-4 items-center justify-center rounded-full bg-[#E94560] px-1 py-0.5 text-[9px] font-bold leading-none text-white">
+                    {favoritesCount > 9 ? '9+' : favoritesCount}
+                  </span>
+                ) : null}
+              </span>
+              <span>Favoris</span>
             </MobileNavLink>
 
             <MobileNavLink
@@ -317,6 +349,20 @@ export function Navbar() {
               </Link>
 
               <div className="mt-5 grid gap-3">
+                <Link
+                  to="/favoris"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 rounded-2xl border border-[#E7DFD5] bg-white px-4 py-4 text-base font-semibold text-[#171311] transition hover:border-[#E94560]"
+                >
+                  <Heart className="h-5 w-5" />
+                  Mes favoris
+                  {favoritesCount > 0 ? (
+                    <span className="ml-auto inline-flex min-w-6 items-center justify-center rounded-full bg-[#E94560] px-2 py-0.5 text-xs font-bold text-white">
+                      {favoritesCount > 99 ? '99+' : favoritesCount}
+                    </span>
+                  ) : null}
+                </Link>
+
                 <Link
                   to="/ma-selection"
                   onClick={() => setMobileOpen(false)}

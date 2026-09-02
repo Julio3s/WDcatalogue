@@ -47,6 +47,34 @@ export function useSeo({ title, description, image, url }) {
       property: 'og:url',
       content: url || window.location.href,
     });
+    setMetaTag('meta[property="og:type"]', {
+      property: 'og:type',
+      content: 'website',
+    });
+    setMetaTag('meta[property="og:site_name"]', {
+      property: 'og:site_name',
+      content: 'WORLD DESIGN',
+    });
+    setMetaTag('meta[property="og:locale"]', {
+      property: 'og:locale',
+      content: 'fr_FR',
+    });
+    setMetaTag('meta[name="twitter:card"]', {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    });
+    setMetaTag('meta[name="twitter:title"]', {
+      name: 'twitter:title',
+      content: title || 'WORLD DESIGN',
+    });
+    setMetaTag('meta[name="twitter:description"]', {
+      name: 'twitter:description',
+      content: description || '',
+    });
+    setMetaTag('meta[name="twitter:image"]', {
+      name: 'twitter:image',
+      content: image || '',
+    });
 
     return () => {
       document.title = previousTitle;

@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, ShoppingBag } from 'lucide-react';
+import {
+  ArrowLeft,
+  Check,
+  Copy,
+  Heart,
+  MessageCircle,
+  Share2,
+  ShoppingBag,
+} from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 
 import { getProductBySlug } from '../api/catalog';
@@ -7,10 +15,18 @@ import { ErrorState } from '../components/ErrorState';
 import { LoadingState } from '../components/LoadingState';
 import ProductImageCarousel from '../components/ProductImageCarousel';
 import { QuantitySelector } from '../components/QuantitySelector';
-import { useSelectionStore } from '../store/selectionStore';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useSeo } from '../hooks/useSeo';
-import { normalizePublicUrl } from '../utils/media';
+import { getProductImage, normalizePublicUrl } from '../utils/media';
+import {
+  buildWhatsAppShareUrl,
+  copyToClipboard,
+  getOgShareUrl,
+  getProductFrontendUrl,
+} from '../utils/share';
+import { useFavoritesStore } from '../store/favoritesStore';
+import { useSelectionStore } from '../store/selectionStore';
+import { useToastStore } from '../store/toastStore';
 
 function buildImagesArray(product) {
   if (!product) return [];
@@ -53,11 +69,26 @@ export default function ProductDetailPage() {
   const [customText, setCustomText] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
   const [addedToSelection, setAddedToSelection] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const addItem = useSelectionStore((state) => state.addItem);
+  const favorites = useFavoritesStore((state) => state.favorites);
+  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
+  const showToast = useToastStore((state) => state.showToast);
+
+  const isFavorite = product ? favorites.some((fav) => fav.productId === product.id) : false;
 
   usePageTitle(product ? `${product.name} - WORLD DESIGN` : 'WORLD DESIGN');
-  useSeo(product ? { title: product.name, description: product.description } : {});
+  useSeo(
+    product
+      ? {
+          title: product.name,
+          description: product.description,
+          image: getProductImage(product),
+          url: getProductFrontendUrl(product.slug),
+        }
+      : {}
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -85,6 +116,44 @@ export default function ProductDetailPage() {
     addItem(product, quantity, customText, selectedModel);
     setAddedToSelection(true);
     setTimeout(() => setAddedToSelection(false), 2000);
+  };
+
+  const handleToggleFavorite = () => {
+    if (!product) return;
+    toggleFavorite(product);
+    showToast(isFavorite ? 'Retiré des favoris' : 'Ajouté aux favoris', 'success');
+  };
+
+  const handleWhatsAppShare = () => {
+    if (!product) return;
+    window.open(buildWhatsAppShareUrl(product), '_blank', 'noopener,noreferrer');
+  };
+
+  const handleCopyLink = async () => {
+    if (!product) return;
+    const ok = await copyToClipboard(getOgShareUrl(product.slug));
+    if (ok) {
+      setCopied(true);
+      showToast('Lien copié — aperçu avec photo disponible', 'success');
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleNativeShare = async () => {
+    if (!product) return;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: product.name,
+          text: `Découvrez ${product.name} sur WORLD DESIGN`,
+          url: getOgShareUrl(product.slug),
+        });
+      } catch {
+        // Partage annulé par l'utilisateur : on ignore.
+      }
+    } else {
+      handleCopyLink();
+    }
   };
 
   if (loading) return <LoadingState />;
@@ -119,9 +188,30 @@ export default function ProductDetailPage() {
               <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#A58A63]">
                 Fiche produit
               </p>
-              <h1 className="mt-3 text-3xl font-black tracking-tight text-[#171311] sm:text-5xl">
-                {product.name}
-              </h1>
+              <div className="mt-3 flex items-start justify-between gap-4">
+                <h1 className="text-3xl font-black tracking-tight text-[#171311] sm:text-5xl">
+                  {product.name}
+                </h1>
+                <button
+                  type="button"
+                  onClick={handleToggleFavorite}
+                  aria-label={
+                    isFavorite ? `Retirer ${product.name} des favoris` : `Ajouter ${product.name} aux favoris`
+                  }
+                  title={isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                  className={[
+                    'flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition',
+                    isFavorite
+                      ? 'border-[#E94560]/30 bg-[#E94560]/10 text-[#E94560] hover:bg-[#E94560]/15'
+                      : 'border-[#E5DDD4] bg-white text-[#4C4138] hover:border-[#E94560] hover:text-[#E94560]',
+                  ].join(' ')}
+                >
+                  <Heart
+                    className={`h-5 w-5 ${isFavorite ? 'fill-[#E94560] text-[#E94560]' : ''}`}
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {product.category ? (
@@ -197,6 +287,45 @@ export default function ProductDetailPage() {
               >
                 Voir ma sélection
               </Link>
+
+              <div className="mt-8">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8D8175]">
+                  Partager ce produit
+                </h3>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={handleWhatsAppShare}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1EBE5B]"
+                  >
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                    WhatsApp
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#E5DDD4] bg-white px-4 py-2.5 text-sm font-semibold text-[#171311] transition hover:border-[#171311]"
+                  >
+                    {copied ? (
+                      <Check className="h-4 w-4 text-green-600" aria-hidden="true" />
+                    ) : (
+                      <Copy className="h-4 w-4" aria-hidden="true" />
+                    )}
+                    {copied ? 'Lien copié' : 'Copier le lien'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNativeShare}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#E5DDD4] bg-white px-4 py-2.5 text-sm font-semibold text-[#171311] transition hover:border-[#171311]"
+                  >
+                    <Share2 className="h-4 w-4" aria-hidden="true" />
+                    Partager
+                  </button>
+                </div>
+                <p className="mt-2 text-xs leading-5 text-[#8D8175]">
+                  Le lien partagé affiche un aperçu avec le nom et la photo du produit.
+                </p>
+              </div>
 
               <div className="mt-10 rounded-[24px] bg-[#FBF8F3] p-5">
                 <p className="text-sm font-semibold text-[#171311]">Besoin d’un autre angle de vue ?</p>

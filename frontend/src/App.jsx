@@ -11,6 +11,7 @@ const ProductsPage = lazy(() => import('./pages/ProductsPage'));
 const CategoriesPage = lazy(() => import('./pages/CategoriesPage'));
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const SelectionPage = lazy(() => import('./pages/SelectionPage'));
+const FavoritesPage = lazy(() => import('./pages/FavoritesPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 import AdminLoginPage from './pages/admin/AdminLogin';
 import AdminDashboardPage from './pages/admin/DashboardPage';
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="products" element={<ProductsPage />} />
             <Route path="products/:slug" element={<ProductDetailPage />} />
             <Route path="ma-selection" element={<SelectionPage />} />
+            <Route path="favoris" element={<FavoritesPage />} />
             <Route path="info" element={<InfoPage />} />
             <Route path="faq" element={<FaqPage />} />
             <Route path="conditions" element={<TermsPage />} />

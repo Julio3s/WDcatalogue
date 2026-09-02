@@ -1,9 +1,13 @@
+import json
 import logging
 
+from decouple import config
 from django.db import IntegrityError
 from django.db.models import Count, Q, Value, CharField
 from django.db.models.functions import Concat, Lower
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils.html import escape
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
@@ -15,6 +19,7 @@ from apps.users.permissions import IsAdminUser as IsWorldDesignAdminUser
 
 from .models import Category, Product
 from .serializers import (
+    _cloudinary_url,
     CategorySerializer,
     CategoryAdminSerializer,
     ProductAdminSerializer,
@@ -171,6 +176,65 @@ def product_detail(request, slug):
     product = get_object_or_404(Product.objects.select_related('category'), slug=slug, is_active=True)
     serializer = ProductDetailSerializer(product)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+def product_og_view(request, slug):
+    """Page HTML statique avec balises Open Graph pour l'aperçu des liens partagés (WhatsApp, etc.).
+
+    Le crawler de WhatsApp ne rend pas le JavaScript : il lit le HTML brut. Cette page
+    expose donc toutes les métadonnées (titre, description, image) puis redirige le
+    visiteur vers la fiche produit du frontend.
+    """
+    product = get_object_or_404(Product.objects.select_related('category'), slug=slug, is_active=True)
+
+    site_url = config('SITE_URL', default='http://localhost:5173').rstrip('/')
+    frontend_url = f'{site_url}/products/{product.slug}/'
+    image_url = _cloudinary_url(product.image) or ''
+
+    description = (product.description or '').strip()
+    if len(description) > 200:
+        description = f'{description[:197].rstrip()}...'
+
+    title = product.name
+
+    image_tags = ''
+    if image_url:
+        image_tags = (
+            f'<meta property="og:image" content="{escape(image_url)}" />\n'
+            f'<meta property="og:image:width" content="1200" />\n'
+            f'<meta property="og:image:height" content="630" />\n'
+            f'<meta name="twitter:image" content="{escape(image_url)}" />'
+        )
+
+    html = f"""<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>{escape(title)} | WORLD DESIGN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{escape(description)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WORLD DESIGN">
+<meta property="og:title" content="{escape(title)}">
+<meta property="og:description" content="{escape(description)}">
+{image_tags}
+<meta property="og:url" content="{escape(frontend_url)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{escape(title)}">
+<meta name="twitter:description" content="{escape(description)}">
+<link rel="canonical" href="{escape(frontend_url)}">
+<meta http-equiv="refresh" content="0; url={escape(frontend_url)}">
+</head>
+<body style="margin:0;font-family:Arial,Helvetica,sans-serif;background:#F6F1EA;color:#171311;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px;">
+  <div>
+    <p style="font-size:18px;font-weight:700;">{escape(title)}</p>
+    <p style="color:#6F6257;margin-top:8px;">Redirection vers WORLD DESIGN…</p>
+    <a href="{escape(frontend_url)}" style="display:inline-block;margin-top:16px;background:#171311;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:600;">Voir le produit</a>
+  </div>
+  <script>window.location.replace({json.dumps(frontend_url)});</script>
+</body>
+</html>"""
+    return HttpResponse(html, content_type='text/html; charset=utf-8')
 
 
 @api_view(['GET'])
