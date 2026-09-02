@@ -2,7 +2,7 @@ import logging
 
 from django.db import IntegrityError
 from django.db.models import Count, Q, Value, CharField
-from django.db.models.functions import Concat
+from django.db.models.functions import Concat, Lower
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes, permission_classes
@@ -138,7 +138,11 @@ def admin_category_detail(request, pk):
 @permission_classes([AllowAny])
 def list_products(request):
     """List active products with filtering and pagination."""
-    products = Product.objects.select_related('category').filter(is_active=True)
+    products = (
+        Product.objects.select_related('category')
+        .filter(is_active=True)
+        .order_by(Lower('name'), 'name')
+    )
 
     category_slug = request.query_params.get('category')
     if category_slug:
