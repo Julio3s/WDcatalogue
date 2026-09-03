@@ -2,6 +2,7 @@
 import {
   ArrowRight,
   CheckCircle2,
+  Clock,
   Eye,
   Pencil,
   ShoppingBag,
@@ -240,25 +241,98 @@ export default function HomePage() {
       </section>
 
       {/* ---- Section : Soumettre son projet (entre catégories et parcours) ---- */}
-      <section className="relative overflow-hidden bg-[#1A1A2E] py-20 sm:py-28">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 25% 50%, #F5A623 0%, transparent 50%), radial-gradient(circle at 75% 50%, #E94560 0%, transparent 50%)' }} />
+      <section className="relative overflow-hidden bg-[#151028] py-20 sm:py-28">
+        {/* Liserés lumineux dégradés (délimitent bien la section sombre) */}
+        <div
+          className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-transparent via-[#F5A623] to-transparent"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 z-10 h-1 bg-gradient-to-r from-transparent via-[#E94560] to-transparent"
+          aria-hidden="true"
+        />
+
+        {/* Halos d'arrière-plan bien plus présents pour donner de l'éclat */}
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 25%, #F5A623 0%, transparent 45%), radial-gradient(circle at 80% 70%, #E94560 0%, transparent 45%), radial-gradient(circle at 70% 12%, rgba(233, 69, 96, 0.35) 0%, transparent 40%)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Étoiles scintillantes décoratives */}
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+          <span
+            className="absolute left-[10%] top-[18%] text-lg text-[#F5A623] opacity-70 animate-[twinkle_3s_ease-in-out_infinite]"
+            style={{ animationDelay: '0s' }}
+          >
+            ✦
+          </span>
+          <span
+            className="absolute right-[12%] top-[22%] text-sm text-[#E94560] opacity-60 animate-[twinkle_3.4s_ease-in-out_infinite]"
+            style={{ animationDelay: '0.7s' }}
+          >
+            ✦
+          </span>
+          <span
+            className="absolute left-[18%] bottom-[20%] text-sm text-[#F5A623] opacity-60 animate-[twinkle_3.8s_ease-in-out_infinite]"
+            style={{ animationDelay: '1.3s' }}
+          >
+            ✦
+          </span>
+          <span
+            className="absolute right-[20%] bottom-[24%] text-lg text-[#E94560] opacity-70 animate-[twinkle_4.2s_ease-in-out_infinite]"
+            style={{ animationDelay: '0.4s' }}
+          >
+            ✦
+          </span>
+          <span
+            className="absolute right-[45%] top-[12%] text-xs text-white/70 opacity-60 animate-[twinkle_3.1s_ease-in-out_infinite]"
+            style={{ animationDelay: '1.8s' }}
+          >
+            ✦
+          </span>
+        </div>
+
         <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#F5A623]/90">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[#F5A623]/50 bg-gradient-to-r from-[#F5A623]/20 to-[#E94560]/20 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.22em] text-[#F5A623] shadow-[0_0_35px_rgba(245,166,35,0.35)] backdrop-blur-sm">
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
             Projet sur mesure
           </p>
-          <h2 className="mt-6 text-2xl font-extrabold leading-[1.2] text-white sm:text-3xl lg:text-4xl">
+          <h2 className="mt-7 text-3xl font-black leading-[1.15] text-white sm:text-4xl lg:text-5xl">
             L’imagination n’a pas de limites…
-            <span className="mt-2 block text-[#F5A623]">et nos créations non plus !</span>
+            <span className="mt-3 block bg-gradient-to-r from-[#F5A623] via-[#FFB84D] to-[#E94560] bg-clip-text text-transparent">
+              et nos créations non plus !
+            </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/70 sm:text-lg">
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
             Soumettez votre projet, nous vous dirons comment le rendre possible.
           </p>
-          <div className="mt-8 flex justify-center">
+
+          {/* Réassurance */}
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/80">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#F5A623]" aria-hidden="true" />
+              Devis adapté à votre projet
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/80">
+              <Clock className="h-3.5 w-3.5 text-[#F5A623]" aria-hidden="true" />
+              Réponse sous 24 h ouvrées
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/80">
+              <CheckCircle2 className="h-3.5 w-3.5 text-[#F5A623]" aria-hidden="true" />
+              Accompagnement personnalisé
+            </span>
+          </div>
+            <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href={buildWhatsAppUrl("Bonjour ! J'aimerais soumettre un projet personnalisé. Pouvez-vous m'aider à le concrétiser ?")}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-8 py-4 text-sm font-bold text-white transition hover:border-[#F5A623] hover:text-[#F5A623] active:scale-[0.98]"
+              className="group inline-flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#F5A623] to-[#E94560] px-9 py-4 text-base font-bold text-white shadow-[0_14px_45px_rgba(233,69,96,0.45)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_18px_60px_rgba(245,166,35,0.5)] active:scale-[0.97]"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -268,6 +342,14 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
+
+            <Link
+              to="/products"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-7 py-4 text-sm font-bold text-white backdrop-blur-sm transition hover:border-[#F5A623] hover:text-[#F5A623]"
+            >
+              Parcourir le catalogue
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
