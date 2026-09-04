@@ -238,9 +238,20 @@ export default function HomePage() {
       </section>
 
       {/* ---- Section : Soumettre son projet (entre catégories et parcours) ---- */}
-      <section className="relative bg-[#171311] py-20 sm:py-28">
-        <div className="mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="inline-flex items-center gap-2 rounded-full border border-[#F5A623]/40 bg-[#171311] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#F5A623]">
+      <section className="relative py-24 sm:py-32">
+        {/* Fond image avec voile sombre pour la lisibilité */}
+        <div className="absolute inset-0" aria-hidden="true">
+          <img
+            src="/images/why-customization.jpg"
+            alt=""
+            className="h-full w-full object-cover object-center"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-[#171311]/85" />
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <p className="text-base font-black uppercase tracking-[0.18em] text-white">
             Projet sur mesure
           </p>
           <h2 className="mt-8 text-4xl font-black leading-[1.1] text-white sm:text-5xl lg:text-6xl">
