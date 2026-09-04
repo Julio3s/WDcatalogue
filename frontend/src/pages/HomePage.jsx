@@ -139,12 +139,12 @@ export default function HomePage() {
             <p className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/85 backdrop-blur-md">
               Catalogue premium
             </p>
-            <h1 className="mt-5 max-w-2xl text-3xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h2 className="mt-5 max-w-2xl text-3xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Des objets qui donnent du relief
               <span className="mt-2 block bg-gradient-to-r from-[#F5A623] to-[#E94560] bg-clip-text text-transparent">
                 à votre marque
               </span>
-            </h1>
+            </h2>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-white sm:mt-5 sm:text-lg">
               Parcourez une sélection de goodies personnalisés, préparez votre demande en quelques gestes
               et envoyez-la à notre équipe pour obtenir un devis clair, rapide et adapté à votre projet.
@@ -251,9 +251,9 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="text-base font-black uppercase tracking-[0.18em] text-white">
+          <h1 className="text-base font-black uppercase tracking-[0.18em] text-white">
             Projet sur mesure
-          </p>
+          </h1>
           <h2 className="mt-8 text-4xl font-black leading-[1.1] text-white sm:text-5xl lg:text-6xl">
             L’imagination n’a pas de limites…
             <span className="mt-3 block text-[#F5A623]">
