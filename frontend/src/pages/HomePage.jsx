@@ -251,20 +251,19 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="text-base font-black uppercase tracking-[0.18em] text-white">
+          <h1 className="text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-6xl lg:text-7xl">
             Projet sur mesure
           </h1>
-          <h2 className="mt-8 text-4xl font-black leading-[1.1] text-white sm:text-5xl lg:text-6xl">
-            L’imagination n’a pas de limites…
-            <span className="mt-3 block text-[#F5A623]">
-              et nos créations non plus !
-            </span>
+          <h2 className="mt-6 text-xl font-bold leading-relaxed text-white/80 sm:text-2xl">
+            L’imagination n’a pas de limites…{' '}
+            <span className="text-[#F5A623]">et nos créations non plus !</span>
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/75 sm:text-lg">
             Envie d’un goodie qui vous ressemble, d’un objet qui reflète votre identité ? Décrivez-nous votre idée ici — nous sommes prêts à vous accompagner pour la concrétiser.
           </p>
-            <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+
+          <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href={buildWhatsAppUrl("Bonjour ! J'aimerais soumettre un projet personnalisé. Pouvez-vous m'aider à le concrétiser ?")}
               target="_blank"
