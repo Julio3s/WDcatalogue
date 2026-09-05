@@ -260,7 +260,7 @@ export default function HomePage() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/75 sm:text-lg">
-            Envie d’un goodie qui vous ressemble, d’un objet qui reflète votre identité ? Décrivez-nous votre idée ici — nous sommes prêts à vous accompagner pour la concrétiser.
+            Soumettez votre projet, nous vous dirons comment le rendre possible.
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
