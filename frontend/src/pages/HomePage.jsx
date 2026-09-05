@@ -242,7 +242,7 @@ export default function HomePage() {
         {/* Fond image avec voile sombre pour la lisibilité */}
         <div className="absolute inset-0" aria-hidden="true">
           <img
-            src="/images/why-customization.jpg"
+            src="/images/qvt8smpthm7f9ezkgedy.jpg"
             alt=""
             className="h-full w-full object-cover object-center"
             loading="eager"
